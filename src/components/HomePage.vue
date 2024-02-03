@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import { mapGetters, mapMutations } from "vuex"
 import vueStyles from "@/styles/homepage-vue-styles"
 
@@ -42,7 +41,6 @@ export default {
   },
   data() {
     return {
-      todayImage: null,
     }
   },
   methods: {
@@ -53,18 +51,11 @@ export default {
   computed: {
     ...mapGetters({
       isDailyLoading: "getIsDailyImageLoading",
+      todayImage: "getTodayImage",
     }),
   },
   mounted() {
-    this.setIsDailyLoading(true)
-    axios
-      .get(
-        "https://api.nasa.gov/planetary/apod?api_key=jfhpZIbfdDVGKSNbIzVmeXUVt4kcaibRCKoj4iuw"
-      )
-      .then((res) => {
-        this.todayImage = res.data
-        this.setIsDailyLoading(false)
-      })
+    this.$store.dispatch('fetchDailyImage')
   },
 }
 </script>
