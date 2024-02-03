@@ -25,6 +25,7 @@
 import { mapGetters, mapMutations } from "vuex"
 import vueStyles from "@/styles/homepage-vue-styles"
 import DateSelector from "./DateSelector.vue"
+import { getToday } from "@/utils/getToday"
 
 
 export default {
@@ -61,11 +62,7 @@ export default {
       todayImage: "getTodayImage",
     }),
     getToday() {
-      const today = new Date()
-      const year = today.getFullYear()
-      const month = String(today.getMonth() + 1).padStart(2, '0')
-      const day = String(today.getDate()).padStart(2, '0')
-      return `${year}-${month}-${day}`
+      return getToday()
     },
   },
   mounted() {
