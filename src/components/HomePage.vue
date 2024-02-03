@@ -1,6 +1,7 @@
 <template>
   <page-wrapper>
-    <page-title>Welcome! Check out Nasa's photo of the day</page-title>
+    <DateSelector :today="getToday" @dateChanged="changeDate"/>
+    <page-title>Welcome! Check out Nasa's photo for the date {{ todayDate }}</page-title>
     <loading-container v-if="isDailyLoading || !todayImage">
       <loader />
     </loading-container>
@@ -23,6 +24,7 @@
 <script>
 import { mapGetters, mapMutations } from "vuex"
 import vueStyles from "@/styles/homepage-vue-styles"
+import DateSelector from "./DateSelector.vue"
 
 
 export default {
@@ -38,24 +40,37 @@ export default {
     CardImage: vueStyles.CARD_IMAGE,
     CardDescription: vueStyles.CARD_DESCRIPTION,
     CardGrid: vueStyles.CARD_GRID,
+    DateSelector,
   },
   data() {
     return {
+      todayDate: '',
     }
   },
   methods: {
     ...mapMutations({
       setIsDailyLoading: "mutate_isDailyImageLoading",
     }),
+    changeDate(value) {
+      this.todayDate = value
+    }
   },
   computed: {
     ...mapGetters({
       isDailyLoading: "getIsDailyImageLoading",
       todayImage: "getTodayImage",
     }),
+    getToday() {
+      const today = new Date()
+      const year = today.getFullYear()
+      const month = String(today.getMonth() + 1).padStart(2, '0')
+      const day = String(today.getDate()).padStart(2, '0')
+      return `${year}-${month}-${day}`
+    },
   },
   mounted() {
-    this.$store.dispatch('fetchDailyImage')
+    this.$store.dispatch('fetchDailyImage', this.getToday)
+    this.todayDate = this.getToday
   },
 }
 </script>

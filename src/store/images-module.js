@@ -33,11 +33,11 @@ const mutations = {
 }
 
 const actions = {
-  async fetchDailyImage(context){
+  async fetchDailyImage(context, payload){
     context.commit('mutate_isDailyImageLoading', true)
     axios
       .get(
-        `https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`
+        `https://api.nasa.gov/planetary/apod?date=${payload}&api_key=${NASA_API_KEY}`
       )
       .then((res) => {
         context.commit('mutate_todayImage', res.data)
