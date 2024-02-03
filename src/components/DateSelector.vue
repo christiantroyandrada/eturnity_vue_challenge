@@ -7,33 +7,13 @@
   </template>
   
   <script>
-  import styled from 'vue-styled-components'
-  
-  const CenteredDateSelector = styled.div`
-    display: flex
-    justify-content: center
-    align-items: center
-    margin: 20px auto
-  `
-  
-  const DateSelectorWrapper = styled.div`
-    display: inline-block
-  `
-  
-  const DateInput = styled.input.attrs({
-    type: 'date',
-  })`
-    padding: 8px
-    font-size: 16px
-    border: 1px solid ${(props) => props.theme.colors.grey1}
-    border-radius: 4px
-  `
+  import vueStyles from "@/styles/dateselector-vue-styles"
   
   export default {
     components: {
-      CenteredDateSelector,
-      DateSelectorWrapper,
-      DateInput,
+      CenteredDateSelector: vueStyles.CENTERED_DATE_SELECTOR,
+      DateSelectorWrapper: vueStyles.DATE_SELECTOR_WRAPPER,
+      DateInput: vueStyles.DATE_INPUT,
     },
     props: {
       today: String,
