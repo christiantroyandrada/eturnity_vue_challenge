@@ -6,6 +6,7 @@ const state = {
   isDailyImageLoading: false,
   isMarsImageLoading: false,
   todayImage: '',
+  marsImages: [],
 }
 
 const getters = {
@@ -17,6 +18,9 @@ const getters = {
   },
   getTodayImage(state) {
     return state.todayImage
+  },
+  getMarsImages(state) {
+    return state.marsImages
   },
 }
 
@@ -30,6 +34,9 @@ const mutations = {
   mutate_todayImage(state, value) {
     state.todayImage = value
   },
+  mutate_marsImages(state, value) {
+    state.marsImages = value
+  },
 }
 
 const actions = {
@@ -42,6 +49,28 @@ const actions = {
       .then((res) => {
         context.commit('mutate_todayImage', res.data)
         context.commit('mutate_isDailyImageLoading', false)
+      })
+  },
+  async fetchMarsImages(context, payload){
+    context.commit('mutate_isMarsImageLoading', true)
+    const parameters = payload
+    switch (parameters.rover) {
+      case 'opportunity':
+        parameters.date = "2018-06-09"
+        break;
+      case 'spirit':
+        parameters.date = "2010-03-21"
+        break;
+      default:
+        break;
+    }
+    axios
+      .get(
+        `https://api.nasa.gov/mars-photos/api/v1/rovers/${parameters.rover}/photos?earth_date=${parameters.date}&api_key=${NASA_API_KEY}`
+      )
+      .then((res) => {
+        context.commit('mutate_marsImages', res.data)
+        context.commit('mutate_isMarsImageLoading', false)
       })
   }
 }

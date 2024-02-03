@@ -1,9 +1,8 @@
 <template>
   <page-wrapper>
+    <RoverSelector @roverSelected="fetchMarsImages" />
     <page-title>Mars photos from today</page-title>
-    <loading-container
-      v-if="isMarsImageLoading || !marsImage || !marsImage.photos.length"
-    >
+    <loading-container v-if="isMarsImageLoading || !marsImage || !marsImage.photos || !marsImage.photos.length">
       <loader />
     </loading-container>
     <card-container v-else>
@@ -40,14 +39,13 @@
 </template>
 
 <script>
-import axios from "axios"
 import { mapGetters, mapMutations } from "vuex"
 import vueStyles from "@/styles/marstoday-vue-styles"
-import { getToday } from "@/utils/getToday"
-
+import { getToday, getTodayDelayed } from "@/utils/getToday"
+import RoverSelector from "./RoverSelector.vue"
 
 export default {
-  name: "mars-yesterday",
+  name: "mars-today",
   components: {
     PageWrapper: vueStyles.PAGE_WRAPPER,
     PageTitle: vueStyles.PAGE_TITLE,
@@ -60,10 +58,10 @@ export default {
     CardDescription: vueStyles.CARD_DESCRIPTION,
     CardGrid: vueStyles.CARD_GRID,
     MoreDetails: vueStyles.MORE_DETAILS,
+    RoverSelector
   },
   data() {
     return {
-      marsImage: null,
     }
   },
   computed: {
@@ -71,9 +69,13 @@ export default {
       isMarsImageLoading: "getIsMarsImageLoading",
       isDailyLoading: "getIsDailyImageLoading",
       todayImage: "getTodayImage",
+      marsImage: "getMarsImages",
     }),
     getToday() {
       return getToday()
+    },
+    getTodayDelayed() {
+      return getTodayDelayed()
     },
   },
   methods: {
@@ -84,29 +86,17 @@ export default {
     fetchTodayImage() {
       this.$store.dispatch('fetchDailyImage', this.getToday)
     },
+    fetchMarsImages(value) {
+      this.$store.dispatch('fetchMarsImages',
+        {
+          date: this.getTodayDelayed,
+          rover: value
+        })
+    }
   },
   mounted() {
     this.setIsDailyLoading(true)
     this.fetchTodayImage()
-    let formattedDate
-    const today = new Date()
-    const yesterday = new Date(today)
-    yesterday.setDate(today.getDate() - 11)
-    const year = yesterday.getFullYear()
-    const month = String(yesterday.getMonth() + 1).padStart(2, "0")
-    const day = String(yesterday.getDate()).padStart(2, "0")
-    formattedDate = `${year}-${month}-${day}`
-    // Note: returning -10 days on purpose because the data can be lagged. Just pretend it's "today"
-    this.setIsMarsImageLoading(true)
-    axios
-      .get(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${formattedDate}&api_key=jfhpZIbfdDVGKSNbIzVmeXUVt4kcaibRCKoj4iuw`
-      )
-      .then((res) => {
-        this.marsImage = res.data
-        // 25 results per page are returned
-        this.setIsMarsImageLoading(false)
-      })
   },
 }
 </script>

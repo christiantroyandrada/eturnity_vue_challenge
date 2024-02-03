@@ -11,10 +11,10 @@ const PAGE_TITLE = styled.div`
   color: ${(props) => props.theme.colors.purple};
 `
 
-const CARD_CONTAINER= styled.div`
+const CARD_CONTAINER = styled.div`
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 30px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 350px));
   align-items: center;
   justify-items: center;
   margin-top: 30px;
@@ -24,8 +24,7 @@ const CARD_CONTAINER= styled.div`
 const CARD_WRAPPER = styled.div`
   box-shadow: 0 2px 7px 3px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
-  height: 100%;
-  min-width: 100%;
+  width: 50%;
 `
 
 const CARD_GRID = styled.div`
