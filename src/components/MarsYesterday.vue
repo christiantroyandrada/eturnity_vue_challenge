@@ -1,16 +1,5 @@
 <template>
   <page-wrapper>
-    <menu-container>
-      <menu-wrapper>
-        <router-link tag="a" :to="{ name: 'homePage' }">Home</router-link>
-        <router-link tag="a" :to="{ name: 'marsYesterday' }"
-          >Mars Yesterday</router-link
-        >
-        <router-link tag="a" :to="{ name: 'marsToday' }"
-          >Mars Today</router-link
-        >
-      </menu-wrapper>
-    </menu-container>
     <page-title>Mars photos from yesterday</page-title>
     <loading-container
       v-if="isMarsImageLoading || !marsImage || !marsImage.photos.length"
@@ -319,27 +308,6 @@ import styled from "vue-styled-components"
 import axios from "axios"
 import { mapGetters, mapMutations } from "vuex"
 
-const MenuContainer = styled.div`
-  background-color: ${(props) => props.theme.colors.grey2};
-  padding: 20px;
-`
-
-const MenuWrapper = styled.div`
-  display: grid;
-  grid-template-columns: auto auto auto 1fr;
-  gap: 20px;
-
-  a {
-    color: ${(props) => props.theme.colors.blue};
-    text-decoration: none;
-  }
-
-  a:not(:last-child) {
-    border-right: 1px solid ${(props) => props.theme.colors.white};
-    padding-right: 20px;
-  }
-`
-
 const PageWrapper = styled.div`
   padding-bottom: 50px;
 `
@@ -427,8 +395,6 @@ export default {
   name: "mars-yesterday",
   components: {
     PageWrapper,
-    MenuWrapper,
-    MenuContainer,
     PageTitle,
     CardContainer,
     CardWrapper,
