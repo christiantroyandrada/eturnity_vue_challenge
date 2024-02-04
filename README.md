@@ -3,7 +3,11 @@
 ## Project setup
 
 ```
+If you are using node version manager(nvm), use v12.22.2
 npm install
+create a file in the root of the repo called env.js
+add the following:
+ - export const NASA_API_KEY = "YOUR_API_KEY"
 ```
 
 ### Compiles and hot-reloads for development
@@ -34,5 +38,6 @@ https://api.nasa.gov/index.html
 - Program in Vue 2
 
 ***
-IMPORTANT: Create a zip file of your code and email it.
+CREDITS TO: 
+ - Aaron Enser of Eturnity for the original code for the challenge
 ```
