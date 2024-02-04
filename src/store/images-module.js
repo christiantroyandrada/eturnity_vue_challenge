@@ -1,6 +1,7 @@
 import axios from "axios"
 
 import { NASA_API_KEY } from "../../env"
+import { getTodayOpportunity, getTodaySpirit } from "@/utils/getToday"
 
 const state = {
   isDailyImageLoading: false,
@@ -56,10 +57,10 @@ const actions = {
     const parameters = payload
     switch (parameters.rover) {
       case 'opportunity':
-        parameters.date = "2018-06-09"
+        parameters.date = getTodayOpportunity
         break;
       case 'spirit':
-        parameters.date = "2010-03-21"
+        parameters.date = getTodaySpirit
         break;
       default:
         break;

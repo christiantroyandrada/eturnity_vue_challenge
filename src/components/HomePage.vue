@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex"
+import { mapGetters } from "vuex"
 import vueStyles from "@/styles/homepage-vue-styles"
 import DateSelector from "./DateSelector.vue"
 import { getToday } from "@/utils/getToday"
@@ -49,9 +49,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({
-      setIsDailyLoading: "mutate_isDailyImageLoading",
-    }),
     changeDate(value) {
       this.todayDate = value
     }

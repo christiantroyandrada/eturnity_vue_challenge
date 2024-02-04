@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex"
+import { mapGetters } from "vuex"
 import vueStyles from "@/styles/marstoday-vue-styles"
 import { getToday, getTodayDelayed } from "@/utils/getToday"
 import RoverSelector from "./RoverSelector.vue"
@@ -79,10 +79,6 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({
-      setIsMarsImageLoading: "mutate_isMarsImageLoading",
-      setIsDailyLoading: "mutate_isDailyImageLoading",
-    }),
     fetchTodayImage() {
       this.$store.dispatch('fetchDailyImage', this.getToday)
     },
@@ -95,7 +91,6 @@ export default {
     }
   },
   mounted() {
-    this.setIsDailyLoading(true)
     this.fetchTodayImage()
   },
 }
