@@ -304,107 +304,24 @@
 </template>
 
 <script>
-import styled from "vue-styled-components"
 import axios from "axios"
 import { mapGetters, mapMutations } from "vuex"
-
-const PageWrapper = styled.div`
-  padding-bottom: 50px;
-`
-
-const PageTitle = styled.div`
-  font-size: 24px;
-  text-align: center;
-  margin: 16px 0;
-  color: ${(props) => props.theme.colors.purple};
-`
-
-const CardContainer = styled.div`
-  display: grid;
-  grid-gap: 30px;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 350px));
-  align-items: center;
-  justify-items: center;
-  margin-top: 30px;
-  padding: 20px;
-`
-
-const CardWrapper = styled.div`
-  box-shadow: 0 2px 7px 3px rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-  height: 100%;
-  min-width: 100%;
-`
-
-const CardGrid = styled.div`
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  grid-gap: 16px;
-  align-items: center;
-  justify-items: center;
-  min-height: 100%;
-`
-
-const CardTitle = styled.div`
-padding: 20px
-  font-size: 18px;
-  text-align: center;
-  border-bottom: 1px solid ${(props) => props.theme.colors.grey3};
-`
-
-const CardImage = styled.img`
-  max-width: 100%;
-`
-
-const CardDescription = styled.div`
-  font-size: 14px;
-  padding: 14px;
-`
-
-const LoadingContainer = styled.div`
-  width: 100%;
-`
-const Loader = styled.div`
-  border: 6px solid ${(props) => props.theme.colors.red};
-  border-top: 6px solid ${(props) => props.theme.colors.purple};
-  border-radius: 100%;
-  width: 30px;
-  height: 30px;
-  animation: spin 2s linear infinite;
-  margin: 0 auto;
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-`
-
-const MoreDetails = styled.div`
-  margin: 24px 0 16px 0;
-  color: ${(props) => props.theme.colors.red};
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-`
+import VueStyles from "@/styles/marsyesterday-vue-styles"
 
 export default {
   name: "mars-yesterday",
   components: {
-    PageWrapper,
-    PageTitle,
-    CardContainer,
-    CardWrapper,
-    Loader,
-    LoadingContainer,
-    CardTitle,
-    CardImage,
-    CardDescription,
-    CardGrid,
-    MoreDetails,
+    PageWrapper: VueStyles.PAGE_WRAPPER,
+    PageTitle: VueStyles.PAGE_TITLE,
+    CardContainer: VueStyles.CARD_CONTAINER,
+    CardWrapper: VueStyles.CARD_WRAPPER,
+    Loader: VueStyles.LOADER,
+    LoadingContainer: VueStyles.LOADING_CONTAINER,
+    CardTitle: VueStyles.CARD_TITLE,
+    CardImage: VueStyles.CARD_IMAGE,
+    CardDescription: VueStyles.CARD_DESCRIPTION,
+    CardGrid: VueStyles.CARD_GRID,
+    MoreDetails: VueStyles.MORE_DETAILS,
   },
   data() {
     return {

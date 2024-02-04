@@ -7,13 +7,13 @@
   </template>
   
 <script>
-import vueStyles from "@/styles/dateselector-vue-styles"
+import VueStyles from "@/styles/dateselector-vue-styles"
 
 export default {
   components: {
-    CenteredDateSelector: vueStyles.CENTERED_DATE_SELECTOR,
-    DateSelectorWrapper: vueStyles.DATE_SELECTOR_WRAPPER,
-    DateInput: vueStyles.DATE_INPUT,
+    CenteredDateSelector: VueStyles.CENTERED_DATE_SELECTOR,
+    DateSelectorWrapper: VueStyles.DATE_SELECTOR_WRAPPER,
+    DateInput: VueStyles.DATE_INPUT,
   },
   props: {
     today: String,
