@@ -1,10 +1,15 @@
 <template>
   <page-wrapper>
     <RoverSelector @roverSelected="fetchMarsImages" />
-    <page-title>Mars photos from yesterday</page-title>
+    <DateSelector :today="dateTodayRover" @dateChanged="changeDate"/>
+    <page-title>Mars photos from {{dateSelected}}</page-title>
     <loading-container v-if="isMarsImageLoading || !marsImage || !marsImage.photos || !marsImage.photos.length">
       <loader />
     </loading-container>
+    <more-details
+    v-else-if="marsImage.photos.length === 0">
+        Sorry, no data found
+    </more-details>
     <card-container v-else>
       <card-wrapper v-for="(imageMars, index) in marsImage.photos" :key="index">
         <card-grid>
@@ -22,6 +27,9 @@
     <loading-container v-if="isDailyLoading || !todayImage">
       <loader />
     </loading-container>
+    <more-details v-else-if="Object.keys(todayImage).length === 0">
+      Sorry, no data found
+    </more-details>
     <card-container v-else>
       <card-wrapper>
         <card-grid>
@@ -43,6 +51,7 @@ import { mapGetters } from "vuex"
 import VueStyles from "@/styles/marsyesterday-vue-styles"
 import RoverSelector from "./RoverSelector.vue"
 import { getToday, getTodayDelayed } from "@/utils/getToday"
+import DateSelector from "./DateSelector.vue"
 
 export default {
   name: "mars-yesterday",
@@ -59,9 +68,13 @@ export default {
     CardGrid: VueStyles.CARD_GRID,
     MoreDetails: VueStyles.MORE_DETAILS,
     RoverSelector,
+    DateSelector,
   },
   data() {
     return {
+      dateTodayRover: '',
+      roverType: '',
+      dateSelected: '',
     }
   },
   computed: {
@@ -70,6 +83,7 @@ export default {
       isDailyLoading: "getIsDailyImageLoading",
       todayImage: "getTodayImage",
       marsImage: "getMarsImages",
+      dateToday: "getDateToday",
     }),
     getToday() {
       return getToday()
@@ -83,14 +97,29 @@ export default {
       this.$store.dispatch('fetchDailyImage', this.getToday)
     },
     fetchMarsImages(value) {
+      this.dateTodayRover = ''
+      this.dateSelected = ''
+      this.roverType = value
       this.$store.dispatch('fetchMarsImages',
         {
           date: this.getTodayDelayed,
-          rover: value
+          rover: this.roverType
+        })
+      this.dateTodayRover = this.dateToday
+      this.dateSelected = this.dateToday
+    },
+    changeDate(value) {
+      this.dateSelected = value
+      this.$store.dispatch('fetchMarsImages',
+        {
+          date: value,
+          rover: this.roverType
         })
     }
   },
   mounted() {
+    this.dateTodayRover = this.dateToday
+    this.dateSelected = this.dateToday
     this.fetchTodayImage()
   },
 }

@@ -36,6 +36,10 @@ const actions = {
         context.commit('mutate_todayImage', res.data)
         context.commit('mutate_isDailyImageLoading', false)
       })
+      .catch(() => {
+        context.commit('mutate_todayImage', {})
+        context.commit('mutate_isDailyImageLoading', false)
+      })
   },
 }
 

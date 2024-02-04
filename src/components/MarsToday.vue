@@ -5,6 +5,9 @@
     <loading-container v-if="isMarsImageLoading || !marsImage || !marsImage.photos || !marsImage.photos.length">
       <loader />
     </loading-container>
+    <more-details v-else-if="marsImage.photos.length === 0">
+      Sorry, no data found
+    </more-details>
     <card-container v-else>
       <card-wrapper v-for="(imageMars, index) in marsImage.photos" :key="index">
         <card-grid>
@@ -22,6 +25,9 @@
     <loading-container v-if="isDailyLoading || !todayImage">
       <loader />
     </loading-container>
+    <more-details v-else-if="Object.keys(todayImage).length === 0">
+      Sorry, no data found
+    </more-details>
     <card-container v-else>
       <card-wrapper>
         <card-grid>

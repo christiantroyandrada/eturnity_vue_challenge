@@ -5,6 +5,10 @@
     <loading-container v-if="isDailyLoading || !todayImage">
       <loader />
     </loading-container>
+    <more-details 
+    v-else-if="Object.keys(todayImage).length === 0">
+      Sorry, no data found
+    </more-details>
     <card-container v-else>
       <card-wrapper>
         <card-grid>
@@ -41,6 +45,7 @@ export default {
     CardImage: VueStyles.CARD_IMAGE,
     CardDescription: VueStyles.CARD_DESCRIPTION,
     CardGrid: VueStyles.CARD_GRID,
+    MoreDetails: VueStyles.MORE_DETAILS,
     DateSelector,
   },
   data() {
@@ -51,6 +56,7 @@ export default {
   methods: {
     changeDate(value) {
       this.todayDate = value
+      this.$store.dispatch("fetchDailyImage", this.todayDate)
     }
   },
   computed: {

@@ -7,7 +7,6 @@ const state = {
   isMarsImageLoading: false,
   marsImages: [],
   dateToday: '',
-  dateYesterday: '',
 }
 
 const getters = {
@@ -20,9 +19,6 @@ const getters = {
   getDateToday(state) {
     return state.dateToday
   },
-  getDateYesterday(state) {
-    return state.dateYesterday
-  }
 }
 
 const mutations = {
@@ -35,9 +31,6 @@ const mutations = {
   mutate_dateToday(state, value) {
     state.dateToday = value
   },
-  mutate_dateYesterday(state, value) {
-    state.dateYesterday = value
-  }
 }
 
 const actions = {
@@ -62,6 +55,11 @@ const actions = {
       )
       .then((res) => {
         context.commit('mutate_marsImages', res.data)
+        context.commit('mutate_isMarsImageLoading', false)
+      }).catch(() => {
+        context.commit('mutate_marsImages', {
+          photos: [],
+        })
         context.commit('mutate_isMarsImageLoading', false)
       })
   }

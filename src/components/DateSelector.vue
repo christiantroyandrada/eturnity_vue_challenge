@@ -23,13 +23,12 @@ export default {
       selectedDate: '',
     }
   },
-  mounted() {
+  beforeMount() {
     this.selectedDate = this.today
   },
   methods: {
     updateDate(value) {
       this.selectedDate = value
-      this.$store.dispatch("fetchDailyImage", this.selectedDate)
       this.$emit('dateChanged', this.selectedDate)
     },
   },

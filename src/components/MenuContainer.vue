@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import vueStyles from "@/styles/homepage-vue-styles"
+import VueStyles from "@/styles/homepage-vue-styles"
 
 export default {
   name: 'menu-container-component',
   components: {
-    MenuContainer: vueStyles.MENU_CONTAINER,
-    MenuWrapper: vueStyles.MENU_WRAPPER,
+    MenuContainer: VueStyles.MENU_CONTAINER,
+    MenuWrapper: VueStyles.MENU_WRAPPER,
   },
 }
 </script>

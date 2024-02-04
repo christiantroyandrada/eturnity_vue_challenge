@@ -7,7 +7,9 @@ const MENU_CONTAINER = styled.div`
 `
 
 const MENU_WRAPPER = styled.div`
-  display: grid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   grid-template-columns: auto auto auto 1fr;
   gap: 20px;
 
@@ -93,6 +95,13 @@ const LOADER = styled.div`
     }
   }
 `
+const MORE_DETAILS = styled.div`
+  margin: 24px 0 16px 0;
+  color: ${(props) => props.theme.colors.red};
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+`
 
 export default { 
   MENU_CONTAINER,
@@ -107,4 +116,5 @@ export default {
   CARD_DESCRIPTION,
   LOADING_CONTAINER,
   LOADER,
+  MORE_DETAILS
 }
