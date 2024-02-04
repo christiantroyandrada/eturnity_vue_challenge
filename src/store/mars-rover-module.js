@@ -6,6 +6,8 @@ import { getTodayOpportunity, getTodaySpirit } from "@/utils/getToday"
 const state = {
   isMarsImageLoading: false,
   marsImages: [],
+  dateToday: '',
+  dateYesterday: '',
 }
 
 const getters = {
@@ -15,6 +17,12 @@ const getters = {
   getMarsImages(state) {
     return state.marsImages
   },
+  getDateToday(state) {
+    return state.dateToday
+  },
+  getDateYesterday(state) {
+    return state.dateYesterday
+  }
 }
 
 const mutations = {
@@ -24,6 +32,12 @@ const mutations = {
   mutate_marsImages(state, value) {
     state.marsImages = value
   },
+  mutate_dateToday(state, value) {
+    state.dateToday = value
+  },
+  mutate_dateYesterday(state, value) {
+    state.dateYesterday = value
+  }
 }
 
 const actions = {
@@ -40,6 +54,8 @@ const actions = {
       default:
         break;
     }
+    context.commit('mutate_dateToday', parameters.date)
+
     axios
       .get(
         `https://api.nasa.gov/mars-photos/api/v1/rovers/${parameters.rover}/photos?earth_date=${parameters.date}&api_key=${NASA_API_KEY}`

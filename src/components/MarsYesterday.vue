@@ -1,284 +1,19 @@
 <template>
   <page-wrapper>
+    <RoverSelector @roverSelected="fetchMarsImages" />
     <page-title>Mars photos from yesterday</page-title>
-    <loading-container
-      v-if="isMarsImageLoading || !marsImage || !marsImage.photos.length"
-    >
+    <loading-container v-if="isMarsImageLoading || !marsImage || !marsImage.photos || !marsImage.photos.length">
       <loader />
     </loading-container>
     <card-container v-else>
-      <card-wrapper>
+      <card-wrapper v-for="(imageMars, index) in marsImage.photos" :key="index">
         <card-grid>
           <card-title>
-            {{ marsImage.photos[0].camera.full_name }}
+            {{ imageMars.camera.full_name }}
           </card-title>
-          <card-image :src="marsImage.photos[0].img_src" />
+          <card-image :src="imageMars.img_src" />
           <card-description>
-            {{ marsImage.photos[0].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[1].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[1].img_src" />
-          <card-description>
-            {{ marsImage.photos[1].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[2].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[2].img_src" />
-          <card-description>
-            {{ marsImage.photos[2].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[3].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[3].img_src" />
-          <card-description>
-            {{ marsImage.photos[3].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[4].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[4].img_src" />
-          <card-description>
-            {{ marsImage.photos[4].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[5].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[5].img_src" />
-          <card-description>
-            {{ marsImage.photos[5].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[6].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[6].img_src" />
-          <card-description>
-            {{ marsImage.photos[6].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[7].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[7].img_src" />
-          <card-description>
-            {{ marsImage.photos[7].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[8].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[8].img_src" />
-          <card-description>
-            {{ marsImage.photos[8].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[9].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[9].img_src" />
-          <card-description>
-            {{ marsImage.photos[9].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[10].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[10].img_src" />
-          <card-description>
-            {{ marsImage.photos[10].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[11].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[11].img_src" />
-          <card-description>
-            {{ marsImage.photos[11].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[12].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[12].img_src" />
-          <card-description>
-            {{ marsImage.photos[12].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[13].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[13].img_src" />
-          <card-description>
-            {{ marsImage.photos[13].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[14].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[14].img_src" />
-          <card-description>
-            {{ marsImage.photos[14].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[15].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[15].img_src" />
-          <card-description>
-            {{ marsImage.photos[15].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[16].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[16].img_src" />
-          <card-description>
-            {{ marsImage.photos[16].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[17].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[17].img_src" />
-          <card-description>
-            {{ marsImage.photos[17].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[18].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[18].img_src" />
-          <card-description>
-            {{ marsImage.photos[18].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[19].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[19].img_src" />
-          <card-description>
-            {{ marsImage.photos[19].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[20].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[20].img_src" />
-          <card-description>
-            {{ marsImage.photos[20].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[21].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[21].img_src" />
-          <card-description>
-            {{ marsImage.photos[21].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[22].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[22].img_src" />
-          <card-description>
-            {{ marsImage.photos[22].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[23].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[23].img_src" />
-          <card-description>
-            {{ marsImage.photos[23].rover.name }}
-          </card-description>
-        </card-grid>
-      </card-wrapper>
-      <card-wrapper>
-        <card-grid>
-          <card-title>
-            {{ marsImage.photos[24].camera.full_name }}
-          </card-title>
-          <card-image :src="marsImage.photos[24].img_src" />
-          <card-description>
-            {{ marsImage.photos[24].rover.name }}
+            {{ imageMars.rover.name }}
           </card-description>
         </card-grid>
       </card-wrapper>
@@ -304,9 +39,10 @@
 </template>
 
 <script>
-import axios from "axios"
-import { mapGetters, mapMutations } from "vuex"
+import { mapGetters } from "vuex"
 import VueStyles from "@/styles/marsyesterday-vue-styles"
+import RoverSelector from "./RoverSelector.vue"
+import { getToday, getTodayDelayed } from "@/utils/getToday"
 
 export default {
   name: "mars-yesterday",
@@ -322,55 +58,40 @@ export default {
     CardDescription: VueStyles.CARD_DESCRIPTION,
     CardGrid: VueStyles.CARD_GRID,
     MoreDetails: VueStyles.MORE_DETAILS,
+    RoverSelector,
   },
   data() {
     return {
-      todayImage: null,
-      marsImage: null,
     }
   },
   computed: {
     ...mapGetters({
       isMarsImageLoading: "getIsMarsImageLoading",
       isDailyLoading: "getIsDailyImageLoading",
+      todayImage: "getTodayImage",
+      marsImage: "getMarsImages",
     }),
+    getToday() {
+      return getToday()
+    },
+    getTodayDelayed() {
+      return getTodayDelayed()
+    },
   },
   methods: {
-    ...mapMutations({
-      setIsMarsImageLoading: "mutate_isMarsImageLoading",
-      setIsDailyLoading: "mutate_isDailyImageLoading",
-    }),
+    fetchTodayImage() {
+      this.$store.dispatch('fetchDailyImage', this.getToday)
+    },
+    fetchMarsImages(value) {
+      this.$store.dispatch('fetchMarsImages',
+        {
+          date: this.getTodayDelayed,
+          rover: value
+        })
+    }
   },
   mounted() {
-    this.setIsDailyLoading(true)
-    axios
-      .get(
-        "https://api.nasa.gov/planetary/apod?api_key=jfhpZIbfdDVGKSNbIzVmeXUVt4kcaibRCKoj4iuw"
-      )
-      .then((res) => {
-        this.todayImage = res.data
-        this.setIsDailyLoading(false)
-      })
-
-    let formattedDate
-    const today = new Date()
-    const yesterday = new Date(today)
-    yesterday.setDate(today.getDate() - 11)
-    const year = yesterday.getFullYear()
-    const month = String(yesterday.getMonth() + 1).padStart(2, "0")
-    const day = String(yesterday.getDate()).padStart(2, "0")
-    formattedDate = `${year}-${month}-${day}`
-    // Note: returning -11 days on purpose because the data can be lagged. Just pretend it's "yesterday"
-    this.setIsMarsImageLoading(true)
-    axios
-      .get(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${formattedDate}&camera=navcam&page=1&api_key=jfhpZIbfdDVGKSNbIzVmeXUVt4kcaibRCKoj4iuw`
-      )
-      .then((res) => {
-        this.marsImage = res.data
-        // 25 results per page are returned
-        this.setIsMarsImageLoading(false)
-      })
+    this.fetchTodayImage()
   },
 }
 </script>

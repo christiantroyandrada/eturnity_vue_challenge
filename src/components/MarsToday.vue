@@ -1,7 +1,7 @@
 <template>
   <page-wrapper>
     <RoverSelector @roverSelected="fetchMarsImages" />
-    <page-title>Mars photos from today</page-title>
+    <page-title>Mars photos for today({{ dateToday }})</page-title>
     <loading-container v-if="isMarsImageLoading || !marsImage || !marsImage.photos || !marsImage.photos.length">
       <loader />
     </loading-container>
@@ -70,6 +70,7 @@ export default {
       isDailyLoading: "getIsDailyImageLoading",
       todayImage: "getTodayImage",
       marsImage: "getMarsImages",
+      dateToday: "getDateToday",
     }),
     getToday() {
       return getToday()
@@ -86,7 +87,7 @@ export default {
       this.$store.dispatch('fetchMarsImages',
         {
           date: this.getTodayDelayed,
-          rover: value
+          rover: value,
         })
     }
   },
